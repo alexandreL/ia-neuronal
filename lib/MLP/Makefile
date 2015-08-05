@@ -20,6 +20,7 @@ INC_DIR	= ../../include
 CC 	= gcc
 
 SRC 	= src/mlp_init.c \
+	  src/load_mlp.c \
 
 OBJ 	= $(SRC:.c=.o)
 

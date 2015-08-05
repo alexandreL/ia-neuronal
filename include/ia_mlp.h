@@ -32,4 +32,6 @@ typedef struct	s_ia_mlp
   int		nb_layer;
 }		t_ia_mlp;
 
+t_ia_mlp	*get_brain();
+
 #endif /* IA_MLP_H_ */

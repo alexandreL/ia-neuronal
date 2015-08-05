@@ -6,16 +6,17 @@
 /*   By: alex <alexandre.loubeyres@gmail.com>           /       \             */
 /*                                                     /         \       ^    */
 /*   Created: 2015/08/05 00:13:49 by alex             |           |     //    */
-/*   Updated: 2015/08/05 03:00:42 by alex              \         /    //      */
+/*   Updated: 2015/08/05 11:16:25 by alex              \         /    //      */
 /*                                                      ///  ///   --         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ia_mlp.h"
 #include "gcm.h"
+#include <stdlib.h>
 
 t_ia_mlp	*get_brain()
 {
-  static t_ia_mlp	brain = {(void *)0, 0};
+  static t_ia_mlp	brain = {NULL, 0};
 
   return (&brain);
 }
@@ -29,21 +30,21 @@ int		init_mlp(int nb_layer)
   if (nb_layer < 3)
     return (-1);
   brain->nb_layer = nb_layer;
-  if ((brain->network = get_new_obj(sizeof(t_layer), MLP)) == (void *)0)
+  if ((brain->network = get_new_obj(sizeof(t_layer), MLP)) == NULL)
     return (-1);
-  brain->network->synapse = (void *)0;
+  brain->network->synapse = NULL;
   brain->network->x = 0;
   brain->network->y = 0;
-  brain->network->next = (void *)0;
+  brain->network->next = NULL;
   layer = brain->network;
   while (0 < nb_layer--)
     {
-      if ((layer->next = get_new_obj(sizeof(t_layer), MLP)) == (void *)0)
+      if ((layer->next = get_new_obj(sizeof(t_layer), MLP)) == NULL)
 	return (-1);
-      layer->next->synapse = (void *)0;
+      layer->next->synapse = NULL;
       layer->next->x = 0;
       layer->next->y = 0;
-      layer->next->next = (void *)0;
+      layer->next->next = NULL;
       layer = layer->next;
     }
   return (0);
@@ -69,13 +70,13 @@ double		**creat_double_tabtab(int x, int y)
   int		i;
   int		j;
 
-  if ((data = get_new_obj(sizeof(double *) * y, MLP)) == (void *)0)
-    return ((void *)0);
+  if ((data = get_new_obj(sizeof(double *) * y, MLP)) == NULL)
+    return (NULL);
   i = 0;
   while (i < y)
     {
-      if ((data[i] = get_new_obj(sizeof(double) * x, MLP)) == (void *)0)
-	return ((void *)0);
+      if ((data[i] = get_new_obj(sizeof(double) * x, MLP)) == NULL)
+	return (NULL);
       j = 0;
       while (j < x)
 	data[i][j++] = 0;
@@ -86,19 +87,19 @@ double		**creat_double_tabtab(int x, int y)
 
 int		add_hidden_layer(int nb_node)
 {
-  static t_layer	*layer = (void *)0;
+  static t_layer	*layer = NULL;
 
-  if (layer == (void *)0)
+  if (layer == NULL)
     layer = get_brain()->network;
   if (!layer || !(layer->next))
     return (-1);
   layer->y = nb_node;
-  if ((creat_double_tabtab(layer->x, layer->y)) == (void *)0)
+  if ((creat_double_tabtab(layer->x, layer->y)) == NULL)
   return (-1);
   layer = layer->next;
   layer->x = nb_node;
   if (!(layer->next))
-    if ((creat_double_tabtab(layer->x, layer->y)) == (void *)0)
+    if ((creat_double_tabtab(layer->x, layer->y)) == NULL)
       return (-1);
   return (0);
 }
