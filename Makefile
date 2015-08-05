@@ -15,15 +15,13 @@ NAME 	= libmlp
 
 LIB_DIR	= ../GCmalloc
 
-INC_DIR	= ../../include
-
 CC 	= gcc
 
-SRC 	= src/mlp_init.c \
+SRC 	= src/.c \
 
 OBJ 	= $(SRC:.c=.o)
 
-CFLAGS 	= -Wall -Werror -Wextra -ansi -pedantic -I$(INC_DIR)
+CFLAGS 	= -Wall -Werror -Wextra -ansi -pedantic -I./include
 
 $(NAME):$(LIB) $(OBJ)
 	@ar rc $(NAME) $(OBJ)

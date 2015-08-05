@@ -5,43 +5,38 @@
 #                                                       \  >#<  /              #
 #    By: alex <alexandre.loubeyres@gmail.com>           /       \              #
 #                                                      /         \       ^     #
-#    Created: 2015/08/03 11:38:50 by alex             |           |     //     #
-#    Updated: 2015/08/03 11:49:33 by alex              \         /    //       #
+#    Created: 2015/06/18 15:49:05 by alex             |           |     //     #
+#    Updated: 2015/06/21 17:43:42 by alex              \         /    //       #
 #                                                       ///  ///   --          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	= libmlp
-
-LIB_DIR	= ../GCmalloc
+NAME 	= libgcm.a
 
 INC_DIR	= ../../include
 
 CC 	= gcc
 
-SRC 	= src/mlp_init.c \
+SRC 	= src/creat_gc_malloc.c \
+	  src/free_gc_malloc.c \
+	  src/get_gc_malloc.c \
 
 OBJ 	= $(SRC:.c=.o)
 
 CFLAGS 	= -Wall -Werror -Wextra -ansi -pedantic -I$(INC_DIR)
 
-$(NAME):$(LIB) $(OBJ)
+$(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo -e "\e[1;32mLibrary multilayer perceptron OK\e[m"
+	@echo -e "\e[1;32mLibrary gcm OK"
 	@mv $(NAME) ../
-
-$(LIB):
-	@(cd $(LIB_DIR) && $(MAKE) $@)
 
 all: $(NAME)
 
 clean:
-	@(cd $(LIB_DIR) && $(MAKE) $@)
 	@rm -f $(OBJ)
 
 fclean: clean
-	@(cd $(LIB_DIR) && $(MAKE) $@)
 	@rm -f ../$(NAME)
 
 re: fclean all
