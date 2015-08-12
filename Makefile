@@ -11,35 +11,17 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	= libmlp
+LIB_DIR	= lib/MLP
 
-LIB_DIR	= ../GCmalloc
+LIBMLP:
+	@(cd $(LIB_DIR) && $(MAKE))
 
-CC 	= gcc
-
-SRC 	= src/.c \
-
-OBJ 	= $(SRC:.c=.o)
-
-CFLAGS 	= -Wall -Werror -Wextra -ansi -pedantic -I./include
-
-$(NAME):$(LIB) $(OBJ)
-	@ar rc $(NAME) $(OBJ)
-	@ranlib $(NAME)
-	@echo -e "\e[1;32mLibrary multilayer perceptron OK\e[m"
-	@mv $(NAME) ../
-
-$(LIB):
-	@(cd $(LIB_DIR) && $(MAKE) $@)
-
-all: $(NAME)
+all: LIBMLP
 
 clean:
 	@(cd $(LIB_DIR) && $(MAKE) $@)
-	@rm -f $(OBJ)
 
 fclean: clean
 	@(cd $(LIB_DIR) && $(MAKE) $@)
-	@rm -f ../$(NAME)
 
 re: fclean all
