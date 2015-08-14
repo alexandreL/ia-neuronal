@@ -6,7 +6,7 @@
 #    By: alex <alexandre.loubeyres@gmail.com>           /       \              #
 #                                                      /         \       ^     #
 #    Created: 2015/08/03 11:38:50 by alex             |           |     //     #
-#    Updated: 2015/08/12 18:30:05 by alex              \         /    //       #
+#    Updated: 2015/08/14 18:31:43 by alex              \         /    //       #
 #                                                       ///  ///   --          #
 #                                                                              #
 # **************************************************************************** #
@@ -21,9 +21,9 @@ CC 	= gcc
 
 SRC 	= src/mlp_init.c \
 	  src/load_mlp.c \
-	  ft_propagation.c \
-	  ft_backpropagation.c \
-	  ft_synapseupdate.c \
+	  src/ft_propagation.c \
+	  src/ft_backpropagation.c \
+	  src/ft_synapseupdate.c \
 
 OBJ 	= $(SRC:.c=.o)
 

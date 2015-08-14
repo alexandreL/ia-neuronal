@@ -16,7 +16,7 @@
 
 t_ia_mlp	*get_brain()
 {
-  static t_ia_mlp	brain = {NULL, 0, NULL, NULL, NULL};
+  static t_ia_mlp	brain = {NULL, 0, NULL, &ft_propagation, &ft_back_propagation, &ft_synapseupdate};
 
   return (&brain);
 }

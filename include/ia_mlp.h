@@ -17,6 +17,7 @@
 # define MLP 200
 
 typedef struct s_layer t_layer;
+typedef struct s_resultlayer t_resultlayer;
 
 struct	s_layer
 {
@@ -27,19 +28,28 @@ struct	s_layer
   t_layer	*prev;
 };
 
+struct	s_resultlayer
+{
+  double	*result;
+  int		nb_result;
+  t_resultlayer	*next;
+  t_resultlayer	*prev;
+};
+
 typedef struct	s_ia_mlp
 {
   t_layer	*network;
   int		nb_layer;
-  int		(*propag)(double *node_prev, double *synapse, double *addr_node_next, int nb_node_next);
-  int		(*backpropag)(double *node_prev, double *synapse, double node_value, double *addr_node_next, int nb_node_next);
-  int		(*synapseupdate)(double node_prev, double node_next, double coef_learn, double *addr_synapse);
+  t_resultlayer	*result;
+  int		(*propag)(double *, double *, double *, int );
+  int		(*backpropag)(double *, double *, double , double *, int );
+  int		(*synapseupdate)(double , double , double , double *);
 }		t_ia_mlp;
 
 t_ia_mlp	*get_brain();
 double		**creat_double_tabtabinv(int x, int y);
-int		ft_synapseupdate(double node_prev, double node_next, double coef_learn, double *addr_synapse);
-int		ft_back_propagation(double *node_prev, double *synapse, double node_value, double *addr_node_next, int nb_node_next);
 int		ft_propagation(double *node_prev, double *synapse, double *addr_node_next, int nb_node_next);
+int		ft_back_propagation(double *node_prev, double *synapse, double node_value, double *addr_node_next, int nb_node_next);
+int		ft_synapseupdate(double node_prev, double node_next, double coef_learn, double *addr_synapse);
 
 #endif /* IA_MLP_H_ */
